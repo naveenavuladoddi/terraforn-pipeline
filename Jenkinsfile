@@ -22,6 +22,7 @@ pipeline {
                     // Initialize Terraform (to download necessary plugins, providers)
                     withEnv(["GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_APPLICATION_CREDENTIALS}"]) {
                         sh "terraform init -backend-config='path=${TF_STATE_FILE}'"
+                        terraform init -backend-config="path=${WORKSPACE}/terraform.tfstate"
                         sh 'terraform init'
                     }
                 }
