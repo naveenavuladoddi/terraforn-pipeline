@@ -5,7 +5,7 @@ pipeline {
         // Define environment variables (for Terraform)
         GOOGLE_APPLICATION_CREDENTIALS = 'C:/Users/sksus/Downloads/avian-chariot-450105-b7-da7e611e5b3c.json' 
         TF_VAR_region = 'us-central1'  // Define region for your deployment
-        TF_VAR_project_id = 'avian-chariot-450105-b7' // Define your project ID
+        TF_VAR_project_id = 'pivotal-data-452009-k8-976873977272' // Define your project ID
         TF_STATE_FILE = "${WORKSPACE}/terraform.tfstate"
     }
 
