@@ -7,6 +7,7 @@ pipeline {
         TF_VAR_region = 'us-central1'  // Define region for your deployment
         TF_VAR_project_id = 'avian-chariot-450105-b7' // Define your project ID
         TF_STATE_FILE = "${WORKSPACE}/terraform.tfstate"
+        GOOGLE_APPLICATION_CREDENTIALS = 'C:/Users/sksus/Downloads/avian-chariot-450105-b7-da7e611e5b3c.json'
     }
 
     stages {
@@ -20,9 +21,9 @@ pipeline {
             steps {
                 script {
                     // Initialize Terraform (to download necessary plugins, providers)
-                   
-                    sh 'terraform init'
+                    withEnv(["GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_APPLICATION_CREDENTIALS}"]) {
                     sh "terraform init -backend-config='path=${TF_STATE_FILE}"
+                    sh 'terraform init'
                 }
             }
         }
@@ -41,8 +42,8 @@ pipeline {
                 script {
                     // Apply the Terraform configuration to create or update resources
                     // This is where Terraform actually makes changes to your cloud infrastructure
-                    sh 'terraform apply -auto-approve tfplan'
-                    sh "terraform apply -state=${TF_STATE_FILE}"
+                     sh "terraform apply -state=${TF_STATE_FILE}"
+                     sh 'terraform apply -auto-approve tfplan'
                 }
             }
         }
